@@ -1,0 +1,78 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Math Practice</title>
+</head>
+<body>
+    <h1>Maths Practice </h1>
+
+    <h2>Addition</h2>
+        <p>
+            <div id=add></div>
+        </p>
+    <h2>Subtraction</h2>
+    <p>
+        <div id=sub></div>
+    </p>
+    <h2>Multiplication</h2>
+    <p>
+        <div id=mul></div>
+    </p>
+    <h2>Division</h2>
+    <p>
+        <div id=division></div>
+    </p>
+    <script>
+        
+        let add_questions = generateMathQuestion(firstValDigit = 2,  secondValDigit = 2, totalQuestion = 5)
+        showQuestions('add', add_questions, '+')
+        
+        let sub_questions = generateMathQuestion(firstValDigit = 3,  secondValDigit = 2, totalQuestion = 5)
+        showQuestions('sub', sub_questions, '-')
+
+
+        let mul_questions = generateMathQuestion(firstValDigit = 2,  secondValDigit = 2, totalQuestion = 5)
+        showQuestions('mul', mul_questions, 'x')
+
+        let division_questions = generateMathDivisibleNumber(firstValDigit = 2,  secondValDigit = 1, totalQuestion = 5)
+        showQuestions('division', division_questions, '/')
+
+        /////////////////////////////////////////////////////////////////
+        function choose(choices) {
+            var index = Math.floor(Math.random() * choices.length);
+            return choices[index];
+        }
+
+        function generateMathDivisibleNumber(firstValDigit, secondValDigit, totalQuestion = 5 ) {
+            let mul_questions = new Array;
+            while (mul_questions.length < totalQuestion) {
+                n1 = generateNumber(firstValDigit)
+                n2 = choose([2,3,4,5,6,7,8,9])
+                if (n1%n2 == 0) {
+                    mul_questions.push({val1: n1 , val2: n2, result: n1 / n2})
+                }
+            }
+            return mul_questions
+        }
+
+        function generateMathQuestion(firstValDigit, secondValDigit, totalQuestion = 5 ) {
+            let mul_questions = new Array;
+            for (let i = 0; i < totalQuestion; i++) {
+                mul_questions.push({val1: generateNumber(firstValDigit), val2: generateNumber(secondValDigit), result:0})
+            }
+            return mul_questions
+        }
+        function showQuestions(elementId, questionObj, questionSymbol) {
+            let content = '<ol>'
+            questionObj.forEach(element => {
+                content +=  `  <li> ${element.val1} ${questionSymbol} ${element.val2} = </li>`
+            });
+            content += '</ol>'
+            document.getElementById(elementId).innerHTML = content
+        }
+        function generateNumber(noOfDigits) {
+            return Math.floor(Math.random() * (10**noOfDigits)) + 1 
+        }
+    </script>
+    </body>
+    
